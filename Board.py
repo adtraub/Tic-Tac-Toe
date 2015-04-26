@@ -81,11 +81,10 @@ class Board:
 
     def __str__(self):
         """Simple String representation of the board
-
             Returns:
               (str): representation of the board
-         """
-       return"""{0:^3}|{1:^3}|{2:^3}
+        """
+        return"""{0:^3}|{1:^3}|{2:^3}
 -----------
 {3:^3}|{4:^3}|{5:^3}
 -----------
@@ -94,7 +93,7 @@ class Board:
 
 
     def gameOver(self):
-       """Checks if the game is over
+        """Checks if the game is over
 
             Returns:
               (bool) True if the game is over, False otherwise.

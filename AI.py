@@ -24,10 +24,11 @@ class AI:
           randomSides (list): values from sides in random order
           randomCorners (list): values from corners in random order          
      """
-    def __init__(self, board, character="O", opponentChar="X"):
+    def __init__(self, board, character="O", opponentChar="X", easyMode=False):
         self.board = board
         self.character = character
-        self.opponentChar = opponentChar 
+        self.opponentChar = opponentChar
+        self.easyMode = easyMode
         self.corners = {
                 "tl":(0,0,),
                 "tr":(0,2,),
@@ -245,6 +246,17 @@ class AI:
             if board.spotIsEmpty(*side):
                 return side
 
+    def findRandomSpot(self):
+        """Finds any random spot for the next move
+
+        Returns:
+          coords (tuple) coordinates of a random empty spot"""
+        return random.choice(self.board.openSpots())
+
     def takeTurn(self):
-        """Finds the best spot for the next move and makes the move"""
-        self.board.makeMove(*(list(self.findBestSpot()) + [self.character]))
+        """Finds the spot for the next move and makes the move"""
+        if self.easyMode:
+            spot = findRandomSpot()
+        else:
+            spot = self.findBestSpot()
+        self.board.makeMove(*(list(spot) + [self.character]))
