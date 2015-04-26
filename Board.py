@@ -16,12 +16,16 @@ class Board:
           spotsTaken (int): keeps track of the number of moves made.
      """
 
-    def __init__(self, default=""):
+    def __init__(self, stage=None, default=""):
         self.default = default
-        self.stage = [[default for i in range(3)] for x in range(3)]
+        if stage and isProperStage(stage):
+            self.stage = stage
+        else:
+            self.stage = [[default for i in range(3)] for x in range(3)]
+
         self.spotsTaken = 0
 
-    def makeMove(self,x,y,value):        
+    def makeMove(self,x,y,value):
         """Makes a Move at the given coords.
 
             Args:
@@ -38,19 +42,19 @@ class Board:
         else:
             raise IndexError("That spot is taken")
 
-    def spotIsEmpty(self,x,y):        
+    def spotIsEmpty(self,x,y):
         """Check if a given location is empty.
 
             Args:
               x (int): The value corresponding to x on a cartesian plane.
               y (int): The value corresponding to y on a cartesian plane.
-              
+
             Returns:
               (bool): True if empty False otherwise.
          """
         return self.stage[x][y] == self.default
-    
-    def spot(self,x,y):        
+
+    def spot(self,x,y):
         """Returns element at the given spot
 
             Args:
@@ -82,7 +86,7 @@ class Board:
     def __str__(self):
         """Simple String representation of the board
             Returns:
-              (str): representation of the board
+              (str): representation of the board using list unpacking magic
         """
         return"""{0:^3}|{1:^3}|{2:^3}
 -----------
@@ -118,3 +122,23 @@ class Board:
             return True,self.default
         #No winner
         return False,""
+
+def isProperStage(stage):
+    """Checks if the stage is a proper stage
+
+        Arguments:
+          stage(list) a 3x3 list containg a tic-tac-toe stage
+
+        Returns:
+          retVal(bool) True if the stage is a 3x3 list
+    """
+    retVal = True
+    if type(stage) == list and len(stage) == 3:
+        for row in stage:
+            if not (type(row) == list and len(row) == 3):
+                retVal = False
+                break #No need to continue if even 1 row is bad
+    else:
+        retVal = False
+
+    return retVal
