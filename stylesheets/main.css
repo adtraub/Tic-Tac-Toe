@@ -1,6 +1,30 @@
 body {
   background: #000;
 }
-.cell{
+
+h1{
+  color: #FFF;
+}
+
+#board{
+  border-collapse:separate;
+  width:80vw;
+  height:75vh;
+}
+
+#board td{
+  padding:2px;
+}
+
+.centered{
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: center;
+}
+
+.spot{
   background: #FFF;
+  height:100%;
+  width:100%;
 }
