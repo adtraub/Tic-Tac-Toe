@@ -1,7 +1,6 @@
 """
 Adam Traub
 tictacDjango
-
 """
 import jinja2
 import webapp2
