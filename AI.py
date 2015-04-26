@@ -249,8 +249,9 @@ class AI:
     def findRandomSpot(self):
         """Finds any random spot for the next move
 
-        Returns:
-          coords (tuple) coordinates of a random empty spot"""
+           Returns:
+             coords (tuple) coordinates of a random empty spot
+        """
         return random.choice(self.board.openSpots())
 
     def takeTurn(self):
