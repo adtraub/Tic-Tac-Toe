@@ -17,15 +17,15 @@ class AIHandler(Handler):
         stage = json.loads(self.request.get("stage"))
         char = self.request.get("aiChar")
         opponentChar = self.request.get("playerChar")
+        board = Board(stage)
 
         logging.info("Stage: {}".format(stage))
         logging.info("Stage type: {}".format(type(stage)))
         logging.info("AIchar: {}".format(char))
         logging.info("Player Char: {}".format(opponentChar))
-        logging.info("Player In Middle: {}".format(opponentChar == stage[4]))
-
-        board = Board(stage)
-        logging.info("\n"+str(board))
+        logging.info("Player Char: {}".format(opponentChar))
+        logging.info("Turn count {}".format(len(board)))
+        logging.info("Game Board:\n"+str(board))
 
         over,winner = board.gameOver()
         output = {"over":over,
