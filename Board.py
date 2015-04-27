@@ -19,11 +19,16 @@ class Board:
     def __init__(self, stage=None, default=""):
         self.default = default
         if stage and isProperStage(stage):
-            self.stage = stage
+            if len(stage) == 9:
+                self.stage = [stage[:3],stage[3:6],stage[6:]]
+            else:
+                self.stage = stage
         else:
             self.stage = [[default for i in range(3)] for x in range(3)]
 
-        self.spotsTaken = 0
+        self.spotsTaken = 9 - (self.stage[0].count(default) +
+                                self.stage[0].count(default) +
+                                self.stage[0].count(default) )
 
     def makeMove(self,x,y,value):
         """Makes a Move at the given coords.
@@ -138,7 +143,7 @@ def isProperStage(stage):
             if not (type(row) == list and len(row) == 3):
                 retVal = False
                 break #No need to continue if even 1 row is bad
-    else:
+    elif not (type(stage) == list and len(stage) == 9):
         retVal = False
 
     return retVal

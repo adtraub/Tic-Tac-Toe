@@ -215,7 +215,7 @@ def findRandomSpot(board):
 
 def takeTurn(board, char, opponentChar, easyMode=False):
     """Finds the spot for the next move and makes the move"""
-    if self.easyMode:
+    if easyMode:
         spot = findRandomSpot(board)
     else:
         spot = findBestSpot(board, char, opponentChar)

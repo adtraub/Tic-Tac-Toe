@@ -1,5 +1,5 @@
 """
-Index.py
+IndexHandler.py
 Class for index views
 """
 from ViewHandler import Handler

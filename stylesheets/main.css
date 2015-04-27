@@ -8,12 +8,12 @@ h1{
 
 #board{
   border-collapse:separate;
-  width:80vw;
-  height:75vh;
+  width: 80vw;
+  height: 75vh;
 }
-
 #board td{
-  padding:2px;
+    width: 33%;
+    height: 33%;
 }
 
 .centered{

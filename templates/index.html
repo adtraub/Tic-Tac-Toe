@@ -27,5 +27,49 @@
         <td><div class="spot"></div></td>
       </tr>
     </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" >
+
+$(document).ready(function() {
+
+    stage = ['','','','','','','','','',];
+    playerChar = 'X';
+    aiChar = 'O';
+    playersTurn = true;
+
+    //adds an onClick function onto each table cell's div
+    $(".spot").each(function(i,o){
+        $(o).attr("id",i)
+        $(o).click(function(){
+            if($(this).html()=='' && playersTurn){
+                $(this).html(playerChar);
+                playersTurn = false;
+                stage[i] = playerChar;
+                takePcTurn();
+            }
+        });
+    });
+});
+
+function takePcTurn(){
+    $.ajax({
+        type: 'GET',
+        url: '/ai',
+        data: { "stage":JSON.stringify(stage),
+                "playerChar":playerChar,
+                "aiChar":aiChar,
+              },
+        success: function(data){
+            console.log(data);
+            stage[data["aiMove"]] = aiChar;
+            $('#'+data["aiMove"]).html(aiChar);
+            playersTurn = true;
+        },
+        dataType: 'json'
+    });
+}
+
+
+    </script>
 </body>
 </html>

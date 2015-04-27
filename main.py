@@ -7,9 +7,11 @@ import webapp2
 import logging
 
 from views.ViewHandler import Handler
-from views.Index import IndexHandler
+from views.IndexHandler import IndexHandler
+from views.AIHandler import AIHandler
 
 
 app = webapp2.WSGIApplication([
     ('/', IndexHandler),
+    ('/ai', AIHandler),
 ], debug=True)
