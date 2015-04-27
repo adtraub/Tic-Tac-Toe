@@ -48,7 +48,7 @@ $(document).ready(function() {
         $(o).attr("id",i) //gives each div an id
         //adds an onClick function onto each table cell's div
         $(o).click(function(){
-            if($(this).html() == '' && playersTurn){
+            if(stage[$(this).attr("id")] == '' && playersTurn){
                 $(this).css('background','blue');
                 playersTurn = false;
                 stage[i] = playerChar;
