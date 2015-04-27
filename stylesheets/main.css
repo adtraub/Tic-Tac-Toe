@@ -16,8 +16,6 @@ button{
 
 #gameOverMessage{
     color:green;
-    margin-right:5px;
-    display:inline;
 }
 
 #board{
@@ -25,6 +23,7 @@ button{
   width: 80vw;
   height: 75vh;
 }
+
 #board td{
     width: 33%;
     height: 33%;

@@ -30,6 +30,9 @@
     <div id="gameOver" class="centered">
         <h2 id="gameOverMessage"></h2><button onclick="resetGame();">Reset Game</button>
     </div>
+    <div class="centered">
+        <button id="afterYou" onclick="afterYou();">After You</button>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" >
 
@@ -45,7 +48,7 @@ $(document).ready(function() {
         $(o).attr("id",i)
         $(o).click(function(){
             if($(this).html() == '' && playersTurn){
-                $(this).html(playerChar);
+                $(this).css('background','blue');
                 playersTurn = false;
                 stage[i] = playerChar;
                 takePcTurn();
@@ -55,6 +58,7 @@ $(document).ready(function() {
 });
 
 function takePcTurn(){
+    $("#afterYou").hide();
     $.ajax({
         type: 'GET',
         url: '/ai',
@@ -65,7 +69,7 @@ function takePcTurn(){
         success: function(data){
             console.log(data);
             stage[data["aiMove"]] = aiChar;
-            $('#'+data["aiMove"]).html(aiChar);
+            $('#'+data["aiMove"]).css('background','red');
             if(!data["over"]){
                 playersTurn = true;
             }else{
@@ -92,8 +96,13 @@ function resetGame(){
     stage = ['','','','','','','','','',];
     playersTurn = true;
     $(".spot").each(function(i,o){
-        $(o).html('');
+        $(o).css('background','white');;
     });
+    $("#afterYou").show();
+}
+
+function afterYou(){
+    takePcTurn();
 }
 
     </script>
