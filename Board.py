@@ -26,10 +26,9 @@ class Board:
         else:
             self.stage = [[default for i in range(3)] for x in range(3)]
 
-        spots = 0
-        for row in stage:
+        spotsUntaken = 0
+        for row in self.stage:
             spotsUntaken += row.count(default)
-
         self.spotsTaken = 9 - spotsUntaken
 
     def makeMove(self,x,y,value):
