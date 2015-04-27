@@ -75,7 +75,7 @@ def findBestSpot(board, char, opponentChar):
                 return 2,i
             if (stage[1][i] == stage[2][i] == who) and (stage[0][i] == default):
                 return 0,i
-            if (stage[2][i] == stage[0][i] == who) and (stage[2][i] == default):
+            if (stage[2][i] == stage[0][i] == who) and (stage[1][i] == default):
                 return 1,i
 
             #This stuff could be trimmed down with a loop but would yield no extra clarity or speed
