@@ -36,8 +36,6 @@ class AIHandler(Handler):
             board.makeMove(*(list(aiMove)+[char]))
             logging.info("\n"+str(board))
             output["over"], output["winner"] = board.gameOver()
-
-            if not output["over"]:
-                output["aiMove"] = ((aiMove[0]*3)+aiMove[1])
+            output["aiMove"] = ((aiMove[0]*3)+aiMove[1])                
 
         self.write(json.dumps(output))
