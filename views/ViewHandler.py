@@ -2,7 +2,7 @@
 ViewHandler.py
 Parent class for all views
 
-Boiler plater code
+My standard Boiler plate code
 """
 import webapp2
 import Tools

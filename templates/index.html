@@ -8,6 +8,7 @@
 <body>
     <header class="centered"><h1>Tic Tac Django!</h1></header>
 
+    <!--Simple table representing the board-->
     <table id="board" class="centered">
       <tr>
         <td><div class="spot"></div></td>
@@ -27,9 +28,11 @@
         <td><div class="spot"></div></td>
       </tr>
     </table>
-    <div id="gameOver" class="centered">
-        <h2 id="gameOverMessage"></h2><button onclick="resetGame();">Reset Game</button>
+    <div id="gameOver" class="centered"> <!--Displays when the game ends-->
+        <h2 id="gameOverMessage"></h2>
+        <button onclick="resetGame();">Reset Game</button>
     </div>
+    <!--Allows the ai to go first-->
     <div class="centered">
         <button id="afterYou" onclick="afterYou();">After You</button>
     </div>
@@ -41,9 +44,10 @@ $(document).ready(function() {
     stage = ['','','','','','','','','',];
     playerChar = 'X';
     aiChar = 'O';
-    playersTurn = true;//ensures that a player can never take 2 turns in a row
+    //ensures that a player can never take 2 turns in a row
+    playersTurn = true;
 
-
+    //code allowing player to take a turn
     $(".spot").each(function(i,o){
         $(o).attr("id",i) //gives each div an id
         //adds an onClick function onto each table cell's div
@@ -109,7 +113,6 @@ function resetGame(){
 function afterYou(){
     takeAiTurn();
 }
-
     </script>
 </body>
 </html>
