@@ -39,6 +39,9 @@ class AIHandler(Handler):
                 output["over"], output["winner"] = board.gameOver()
                 output["aiMove"] = ((aiMove[0]*3)+aiMove[1])
 
+            if output["over"]:
+                StaticAI.reshuffle()
+
             self.write(json.dumps(output))
         except:
             self.render("bad.html")
