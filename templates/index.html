@@ -37,27 +37,29 @@
     <script type="text/javascript" >
 
 $(document).ready(function() {
-
+    //javascript representation of the game board
     stage = ['','','','','','','','','',];
     playerChar = 'X';
     aiChar = 'O';
-    playersTurn = true;
+    playersTurn = true;//ensures that a player can never take 2 turns in a row
 
-    //adds an onClick function onto each table cell's div
+
     $(".spot").each(function(i,o){
-        $(o).attr("id",i)
+        $(o).attr("id",i) //gives each div an id
+        //adds an onClick function onto each table cell's div
         $(o).click(function(){
             if($(this).html() == '' && playersTurn){
                 $(this).css('background','blue');
                 playersTurn = false;
                 stage[i] = playerChar;
-                takePcTurn();
+                takeAiTurn();
             }
         });
     });
 });
 
-function takePcTurn(){
+//ajax function that activates server side code
+function takeAiTurn(){
     $("#afterYou").hide();
     $.ajax({
         type: 'GET',
@@ -80,6 +82,7 @@ function takePcTurn(){
     });
 }
 
+//Handles displaying of post-game messages
 function gameOver(whoWon){
     if(whoWon == ''){
         $("#gameOverMessage").text("Congratulations, you didn't lose.  Still didn't win though");
@@ -91,6 +94,7 @@ function gameOver(whoWon){
     $("#gameOver").show()
 }
 
+//Allows the game to be reset without refreshing the page
 function resetGame(){
     $("#gameOver").hide();
     stage = ['','','','','','','','','',];
@@ -101,8 +105,9 @@ function resetGame(){
     $("#afterYou").show();
 }
 
+//allows ai to go first
 function afterYou(){
-    takePcTurn();
+    takeAiTurn();
 }
 
     </script>

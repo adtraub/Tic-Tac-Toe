@@ -6,7 +6,7 @@ clientside to the AI.
 """
 import json
 import Tools
-import StaticAI
+import AI
 import logging
 from Board import Board
 from ViewHandler import Handler
@@ -33,14 +33,14 @@ class AIHandler(Handler):
                       "winner":winner,
                       "aiMove":-1,}
             if not over:
-                aiMove = StaticAI.takeTurn(board, char, opponentChar)
+                aiMove = AI.takeTurn(board, char, opponentChar)
                 board.makeMove(*(list(aiMove)+[char]))
                 logging.info("\n"+str(board))
                 output["over"], output["winner"] = board.gameOver()
                 output["aiMove"] = ((aiMove[0]*3)+aiMove[1])
 
             if output["over"]:
-                StaticAI.reshuffle()
+                AI.reshuffle()
 
             self.write(json.dumps(output))
         except:
