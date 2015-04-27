@@ -1,9 +1,23 @@
 body {
-  background: #000;
+    background: #000;
 }
 
 h1{
-  color: #FFF;
+    color: #FFF;
+}
+
+button{
+    border-radius: 5px;
+}
+
+#gameOver{
+    display: none
+}
+
+#gameOverMessage{
+    color:green;
+    margin-right:5px;
+    display:inline;
 }
 
 #board{
