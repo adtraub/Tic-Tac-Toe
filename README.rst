@@ -1,28 +1,27 @@
-Story
-======
+Hello!  My name is Adam Traub.  Thanks for taking the time to read this.
 
-As a CMG manager, I want to see how you code a game of Tic Tac Toe, so that I can get a feel for a candidate's skills and strengths.
+I'm a Python dev so I decided to put the AI on the server side with python
+and then sprinkle in some jquery goodness on the client side to make things
+run smoothly and beautifully.
 
-Acceptance criteria
-=======================
+Running this application should be extremely easy.  I generally build my Django
+apps on top of Google App Engine. If you're on a Linux machine, setting up
+GAE can be a bit of a pain because the official instructions seem to end before
+setup is complete.  This site has all the info you should need:
+http://archive.oreilly.com/pub/a/web-services/excerpts/9780596800697/run-google-app-linux.html
 
-* The AI should never lose
-* The submission must include both server & client side code -- no CLI-only or browser-only implementations. Play to your strengths, but show us your full range of skills.
-* Quality counts! A good submission that takes a while is better than a poor submission quickly.
-* You should include clear instructions for how to run your application
+The game is very straight forward.  Click on a box to make your move.  If you'd
+like to allow the AI to go first, simply click the button that says, "After you".
+Naturally, I hide this button after the first move has been taken.
 
+While I am a (new) fan of Bootstrap, I opted not to use it as I felt the
+interface could be made reasonably responsive without it. I have another
+Django application at: https://github.com/adtraub/isthatawordadam
 
-Technical notes
-------------------
+Originally I created this application as a test for a company I was intending to
+apply to, however, I received a job offer the day I intended to submit it.  While
+I no longer intend to pursue the position for the company I created this for,
+I see no reason not to leave it online and allow others to see it.  It's a nifty
+little app, I'd say.
 
-* We are a Django shop, but it is not a requirement that you implement your program as a Django app.
-* Make sure your submission accurately reflects your development style.
-* Commit early and often, with good messages.
-
-
-Submissions
----------------
-
-1. Publicly: Fork this repo and send us a pull request.
-2. Privately: Send us a tar.gz of your solution **including your .git folder** so we can see your commit history.
-
+Tic-Tac-Toe makes for a fun coding Kata!
