@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href= "/stylesheets/main.css">
 </head>
 <body>
-    <header class="centered"><h1>Tic Tac Django!</h1></header>
+    <header class="centered"><h1><a href="/" onclick="resetGame(); return false">Tic Tac Django!</a></h1></header>
 
     <!--Simple table representing the board-->
     <table id="board" class="centered">
@@ -28,13 +28,13 @@
         <td><div class="spot"></div></td>
       </tr>
     </table>
-    <div id="gameOver" class="centered"> <!--Displays when the game ends-->
+    <div id="gameOver" class="centered buttonHolder"> <!--Displays when the game ends-->
         <h2 id="gameOverMessage"></h2>
-        <button onclick="resetGame();">Reset Game</button>
+        <a href="/" class="button" onclick="resetGame(); return false;">Reset Game</a>
     </div>
     <!--Allows the ai to go first-->
-    <div class="centered">
-        <button id="afterYou" onclick="afterYou();">After You</button>
+    <div class="centered buttonHolder">
+        <a id="afterYou" class="button" href="/" onclick="afterYou(); return false;">After You</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" >
