@@ -30,7 +30,7 @@ def reshuffle():
     random.shuffle(RANDOMSIDES)
     random.shuffle(RANDOMCORNERS)
 
-def findBestSpot(board, char, opponentChar):
+def findBestSpot(board, aiChar, playerChar):
     """Finds the best spot for the next move
 
         Notes:
@@ -51,12 +51,12 @@ def findBestSpot(board, char, opponentChar):
 
             Notes:
               Sub-Method of findBestSpot
-              by making the character in question a parameter,
+              by making the aiCharacter in question a parameter,
               this method works equally well for finding winning
               combinations for the AI and the opponent.
 
             Arguments:
-              who (str) character that might achieve the win
+              who (str) aiCharacter that might achieve the win
 
             Returns:
               coords (tuple) coordinates of winning spot or None
@@ -95,18 +95,18 @@ def findBestSpot(board, char, opponentChar):
                 return 0,2
 
 
-    #Check for the 2 way win
+    #Check for the 2 way Corner win
     def checkFork(who):
-        """Check if the game could end in the next move
+        """Check if the opponent can make a fork
 
             Notes:
               Sub-Method of findBestSpot
-              by making the character in question a parameter,
+              by making the aiCharacter in question a parameter,
               this method works equally well for finding forks
               for the AI or the opponent
 
             Arguments:
-              who (str) character that might get a fork
+              who (str) aiCharacter that might get a fork
 
             Returns:
               coords (tuple) coordinates of potential fork or None
@@ -128,7 +128,7 @@ def findBestSpot(board, char, opponentChar):
                 Returns:
                   coords (tuple) coordinates of good fork corner or None
              """
-        #Check if takenA and takenB are taken
+             #Check if takenA and takenB are taken
             if board.spot(*takenA) == board.spot(*takenB) == who:
                 #emptyA is empty
                 if board.spotIsEmpty(*emptyA):
@@ -137,44 +137,53 @@ def findBestSpot(board, char, opponentChar):
                 if board.spotIsEmpty(*emptyB):
                     return emptyB
 
-        #Check top left and top right
-        fork = checkCorners(CORNERS["tl"],CORNERS["tr"],CORNERS["br"],CORNERS["bl"])
-        if fork: return fork,CORNERS["tl"],CORNERS["tr"]
-        #check top right and bottom right
-        fork = checkCorners(CORNERS["tr"],CORNERS["br"],CORNERS["bl"],CORNERS["tl"])
-        if fork: return fork,CORNERS["tr"],CORNERS["br"]
-        #check bottom right and bottom left
-        fork = checkCorners(CORNERS["br"],CORNERS["bl"],CORNERS["tl"],CORNERS["tr"])
-        if fork: return fork,CORNERS["br"],CORNERS["bl"]
-        #check bottom left and top left
-        fork = checkCorners(CORNERS["bl"],CORNERS["tl"],CORNERS["tr"],CORNERS["br"])
-        if fork: return fork,CORNERS["bl"],CORNERS["tl"]
-        #check diagonals \
-        fork = checkCorners(CORNERS["tl"],CORNERS["br"],CORNERS["tr"],CORNERS["bl"])
-        if fork: return fork,CORNERS["tl"],CORNERS["br"]
-        #check diagonals /
-        fork = checkCorners(CORNERS["tr"],CORNERS["bl"],CORNERS["tl"],CORNERS["br"])
-        if fork: return fork,CORNERS["tr"],CORNERS["bl"]
+        #All possible corner fork victory combinations
+        cornerCombos = ((CORNERS["tl"],CORNERS["tr"],CORNERS["br"],CORNERS["bl"]),
+                        (CORNERS["tr"],CORNERS["br"],CORNERS["bl"],CORNERS["tl"]),
+                        (CORNERS["br"],CORNERS["bl"],CORNERS["tl"],CORNERS["tr"]),
+                        (CORNERS["bl"],CORNERS["tl"],CORNERS["tr"],CORNERS["br"]),
+                        (CORNERS["tl"],CORNERS["br"],CORNERS["tr"],CORNERS["bl"]),
+                        (CORNERS["tr"],CORNERS["bl"],CORNERS["tl"],CORNERS["br"]),)
+
+        for combo in cornerCombos:
+            fork = checkCorners(*combo)
+            if fork: return fork, combo[0], combo[1]
+
+    def checkSides(side1, side2):
+        """Checks if 2 Sides surrounding a corner are taken
+
+            Arguments:
+              side1 (tuple) coordinates of possibly filled side
+              side2 (tuple) coordinates of possibly filled side
+
+            Returns:
+              corner (tuple) coordinates of a corner to take to block the 2-way win
+         """
+        if board.spot(*side1) == board.spot(*side2) == playerChar:
+            corner = (side1[0]*side2[0],side1[1]*side2[1])
+            if board.spotIsEmpty(*corner):
+                return corner
+
 
     #Game can't end before 3 moves
     if len(board) >= 3:
         #Checks if AI can win
-        willWin = couldEnd(char)
+        willWin = couldEnd(aiChar)
         if willWin:
             return willWin
 
         #Checks if AI can lose next turn
-        couldLose = couldEnd(opponentChar)
+        couldLose = couldEnd(playerChar)
         if couldLose:
             return couldLose
 
         #checks if AI can fork
-        iCanFork = checkFork(char)
+        iCanFork = checkFork(aiChar)
         if iCanFork:
             return iCanFork[0]
 
         #checks if player can fork
-        theyCanFork = checkFork(opponentChar)
+        theyCanFork = checkFork(playerChar)
         if theyCanFork:
             row,col = 0,1
             cornerA, cornerB = theyCanFork[1:]
@@ -190,6 +199,16 @@ def findBestSpot(board, char, opponentChar):
                 for side in RANDOMSIDES:
                     if board.spotIsEmpty(*side):
                         return side#take a random available side
+
+        #check if player can make a 2-way side play
+        for combo in ((SIDES["tm"], SIDES["ml"]),
+                      (SIDES["tm"], SIDES["mr"]),
+                      (SIDES["bm"], SIDES["ml"]),
+                      (SIDES["bm"], SIDES["mr"])):
+
+            sideSetup = checkSides(*combo)
+            if sideSetup is not None:
+                return sideSetup
 
     #grab center
     if board.spotIsEmpty(1,1):
@@ -213,13 +232,12 @@ def findRandomSpot(board):
     """
     return random.choice(board.openSpots())
 
-def takeTurn(board, char, opponentChar, easyMode=False):
+def takeTurn(board, aiChar, playerChar, easyMode=False):
     """Finds the spot for the next move and makes the move"""
     if easyMode:
         spot = findRandomSpot(board)
     else:
-        spot = findBestSpot(board, char, opponentChar)
+        spot = findBestSpot(board, aiChar, playerChar)
     return spot
-
 
 reshuffle()
