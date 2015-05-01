@@ -42,8 +42,8 @@
 $(document).ready(function() {
     //javascript representation of the game board
     stage = ['','','','','','','','','',];
-    playerChar = 'X';
-    aiChar = 'O';
+    playerChar = '{{ playerChar }}';
+    aiChar = '{{ aiChar }}';
     //ensures that a player can never take 2 turns in a row
     playersTurn = true;
 
@@ -68,10 +68,7 @@ function takeAiTurn(){
     $.ajax({
         type: 'GET',
         url: '/ai',
-        data: { "stage":JSON.stringify(stage),
-                "playerChar":playerChar,
-                "aiChar":aiChar,
-              },
+        data: { "stage":JSON.stringify(stage) },
         success: function(data){
             console.log(data);
             stage[data["aiMove"]] = aiChar;
