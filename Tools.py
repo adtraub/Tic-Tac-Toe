@@ -14,4 +14,5 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 pieces = {
     "playerChar": "X",
     "aiChar": "O",
+    "easyMode":False,
 }

@@ -39,6 +39,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" >
 
+True = true;
+False = false;
+
 $(document).ready(function() {
     //javascript representation of the game board
     stage = ['','','','','','','','','',];
@@ -67,7 +70,7 @@ function takeAiTurn(){
     $("#afterYou").hide();
     $.ajax({
         type: 'GET',
-        url: '/ai',
+        url: {{easyMode}} ? ('/aieasy'):('/ai'),
         data: { "stage":JSON.stringify(stage) },
         success: function(data){
             console.log(data);

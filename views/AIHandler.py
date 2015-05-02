@@ -33,7 +33,7 @@ class AIHandler(Handler):
                       "winner":winner,
                       "aiMove":-1,}
             if not over:
-                aiMove = AI.takeTurn(board, aiChar, playerChar)
+                aiMove = AI.takeTurn(board, aiChar, playerChar, self.easyMode)
                 board.makeMove(*(list(aiMove)+[aiChar]))
                 logging.info("\n"+str(board))
                 output["over"], output["winner"] = board.gameOver()
@@ -45,3 +45,9 @@ class AIHandler(Handler):
             self.write(json.dumps(output))
         except:
             self.render("bad.html")
+
+class HardAIHandler(AIHandler):
+    easyMode = False
+
+class EasyAIHandler(AIHandler):
+    easyMode = True

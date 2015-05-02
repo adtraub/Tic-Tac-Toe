@@ -7,11 +7,13 @@ import webapp2
 import logging
 
 from views.ViewHandler import Handler
-from views.IndexHandler import IndexHandler
-from views.AIHandler import AIHandler
+from views.IndexHandler import HardIndexHandler, EasyIndexHandler
+from views.AIHandler import HardAIHandler, EasyAIHandler
 
 
 app = webapp2.WSGIApplication([
-    ('/', IndexHandler),
-    ('/ai', AIHandler),
+    ('/', HardIndexHandler),
+    ('/easy', EasyIndexHandler),
+    ('/ai', HardAIHandler),
+    ('/aieasy', EasyAIHandler),
 ], debug=True)
